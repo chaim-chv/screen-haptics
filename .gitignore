@@ -1,0 +1,23 @@
+# Build artifacts
+*.app/
+*.dSYM
+*.swiftmodule
+*.o
+*.out
+
+# Executables
+ScreenHaptics
+*.exec
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

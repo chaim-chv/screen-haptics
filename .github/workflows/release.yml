@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version number (e.g., 1.0.0)"
+        required: true
+        default: "1.0.0"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=${{ github.event.inputs.version }}
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+
+      - name: Build app
+        run: |
+          chmod +x build.sh
+          ./build.sh ${{ steps.version.outputs.version }}
+
+      - name: Create ZIP archive
+        run: |
+          zip -r ScreenHaptics-${{ steps.version.outputs.version }}.zip ScreenHaptics.app
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: ScreenHaptics v${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
+          files: |
+            ScreenHaptics-${{ steps.version.outputs.version }}.zip
+          body: |
+            ## ScreenHaptics v${{ steps.version.outputs.version }}
+
+            ### Installation
+            1. Download `ScreenHaptics-${{ steps.version.outputs.version }}.zip`
+            2. Unzip and drag `ScreenHaptics.app` to your Applications folder
+            3. Launch the app
+
+            ### Features
+            - Haptic feedback when cursor moves between displays
+            - Configurable haptic strength
+            - Menu bar icon (Cmd+drag to remove/relaunch to restore)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
