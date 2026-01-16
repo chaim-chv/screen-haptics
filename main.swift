@@ -18,6 +18,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         createStatusItem()
         lastScreen = getCurrentScreen()
         NSEvent.addGlobalMonitorForEvents(matching: .mouseMoved) { [weak self] _ in self?.checkCursorPosition() }
+        NSEvent.addGlobalMonitorForEvents(matching: .leftMouseDragged) { [weak self] _ in self?.checkCursorPosition() }
+        NSEvent.addGlobalMonitorForEvents(matching: .rightMouseDragged) { [weak self] _ in self?.checkCursorPosition() }
+        NSEvent.addGlobalMonitorForEvents(matching: .otherMouseDragged) { [weak self] _ in self?.checkCursorPosition() }
     }
 
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
