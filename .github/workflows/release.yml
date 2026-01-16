@@ -59,9 +59,8 @@ jobs:
             2. Unzip and drag `ScreenHaptics.app` to your Applications folder
             3. Launch the app
 
-            ### Features
-            - Haptic feedback when cursor moves between displays
-            - Configurable haptic strength
-            - Menu bar icon (Cmd+drag to remove/relaunch to restore)
+            > [!NOTE]
+            If you encounter security warnings, go to System Settings > Privacy & Security and click "Open Anyway" for ScreenHaptics.
+            The app is not notarized by Apple, so you need to bypass the Gatekeeper.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
