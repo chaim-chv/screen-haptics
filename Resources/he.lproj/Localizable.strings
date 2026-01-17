@@ -1,0 +1,15 @@
+/* Menu Items */
+"about" = "אודות";
+"haptic_strength" = "עוצמת המשוב";
+"strength_light" = "חלש";
+"strength_medium" = "בינוני";
+"strength_strong" = "חזק";
+"start_at_login" = "הפעלה אוטומטית";
+"quit" = "יציאה";
+
+/* About Window */
+"app_name" = "ScreenHaptics";
+"version" = "גרסה %@";
+"app_description" = "מספק משוב (Haptic Feedback) ב-Trackpad כאשר הסמן עובר בין מסכים.";
+"github_repository" = "גיטהאב";
+"copyright" = "© chaim-chv 2026";

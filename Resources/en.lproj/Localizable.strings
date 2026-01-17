@@ -1,0 +1,15 @@
+/* Menu Items */
+"about" = "About";
+"haptic_strength" = "Haptic Strength";
+"strength_light" = "Light";
+"strength_medium" = "Medium";
+"strength_strong" = "Strong";
+"start_at_login" = "Start at Login";
+"quit" = "Quit";
+
+/* About Window */
+"app_name" = "ScreenHaptics";
+"version" = "Version %@";
+"app_description" = "Provides physical haptic feedback on your trackpad when your cursor moves between displays.";
+"github_repository" = "GitHub Repository";
+"copyright" = "© chaim-chv 2026";

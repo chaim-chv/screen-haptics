@@ -41,12 +41,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let menu = NSMenu()
 
-        menu.addItem(NSMenuItem(title: "About", action: #selector(showAbout), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: NSLocalizedString("about", comment: ""), action: #selector(showAbout), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
 
         strengthMenu = NSMenu()
         strengthMenu?.delegate = self
-        let strengths: [(String, Int)] = [("Light", 0), ("Medium", 1), ("Strong", 2)]
+        let strengths: [(String, Int)] = [
+            (NSLocalizedString("strength_light", comment: ""), 0),
+            (NSLocalizedString("strength_medium", comment: ""), 1),
+            (NSLocalizedString("strength_strong", comment: ""), 2)
+        ]
         let currentStrength = UserDefaults.standard.integer(forKey: strengthKey)
 
         for (label, value) in strengths {
@@ -56,18 +60,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             strengthMenu?.addItem(item)
         }
 
-        let strengthParent = NSMenuItem(title: "Haptic Strength", action: nil, keyEquivalent: "")
+        let strengthParent = NSMenuItem(title: NSLocalizedString("haptic_strength", comment: ""), action: nil, keyEquivalent: "")
         strengthParent.submenu = strengthMenu
         menu.addItem(strengthParent)
 
         menu.addItem(NSMenuItem.separator())
 
-        let login = NSMenuItem(title: "Start at Login", action: #selector(toggleLogin), keyEquivalent: "")
+        let login = NSMenuItem(title: NSLocalizedString("start_at_login", comment: ""), action: #selector(toggleLogin), keyEquivalent: "")
         login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(login)
 
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit", action: #selector(quitApp), keyEquivalent: "q"))
+        menu.addItem(NSMenuItem(title: NSLocalizedString("quit", comment: ""), action: #selector(quitApp), keyEquivalent: "q"))
 
         statusItem?.menu = menu
     }
@@ -77,34 +81,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let style: NSWindow.StyleMask = [.titled, .closable]
             let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 280, height: 240), styleMask: style, backing: .buffered, defer: false)
             window.center()
-            window.title = "About"
+            window.title = NSLocalizedString("about", comment: "")
             window.isReleasedWhenClosed = false
             window.level = .floating
 
             let view = NSView(frame: window.contentView!.frame)
 
-            let title = NSTextField(labelWithString: "ScreenHaptics")
+            let title = NSTextField(labelWithString: NSLocalizedString("app_name", comment: ""))
             title.font = .systemFont(ofSize: 14, weight: .bold)
             title.frame = NSRect(x: 10, y: 195, width: 260, height: 20)
             title.alignment = .center
 
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-            let versionLabel = NSTextField(labelWithString: "Version \(version)")
+            let versionLabel = NSTextField(labelWithString: String(format: NSLocalizedString("version", comment: ""), version))
             versionLabel.font = .systemFont(ofSize: 11)
             versionLabel.textColor = .secondaryLabelColor
             versionLabel.frame = NSRect(x: 10, y: 170, width: 260, height: 16)
             versionLabel.alignment = .center
-            let desc = NSTextField(wrappingLabelWithString: "Provides physical haptic feedback on your trackpad when your cursor moves between displays.")
+
+            let desc = NSTextField(wrappingLabelWithString: NSLocalizedString("app_description", comment: ""))
             desc.font = .systemFont(ofSize: 12)
             desc.frame = NSRect(x: 20, y: 85, width: 240, height: 80)
             desc.alignment = .center
 
-            let link = NSButton(title: "GitHub Repository", target: self, action: #selector(openGitHub))
+            let link = NSButton(title: NSLocalizedString("github_repository", comment: ""), target: self, action: #selector(openGitHub))
             link.bezelStyle = .inline
             link.font = .systemFont(ofSize: 11)
             link.frame = NSRect(x: 60, y: 55, width: 160, height: 25)
 
-            let copy = NSTextField(labelWithString: "© chaim-chv 2026")
+            let copy = NSTextField(labelWithString: NSLocalizedString("copyright", comment: ""))
             copy.font = .systemFont(ofSize: 10)
             copy.textColor = .secondaryLabelColor
             copy.frame = NSRect(x: 10, y: 20, width: 260, height: 20)
@@ -133,7 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func setStrength(_ sender: NSMenuItem) {
         UserDefaults.standard.set(sender.tag, forKey: strengthKey)
-        guard let submenu = statusItem?.menu?.items.first(where: { $0.title == "Haptic Strength" })?.submenu else { return }
+        guard let submenu = statusItem?.menu?.items.first(where: { $0.submenu == strengthMenu })?.submenu else { return }
         for item in submenu.items {
             item.state = (item == sender) ? .on : .off
         }
