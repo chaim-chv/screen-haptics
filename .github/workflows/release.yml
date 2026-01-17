@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set version
         id: version
@@ -42,6 +44,28 @@ jobs:
         run: |
           zip -r ScreenHaptics-${{ steps.version.outputs.version }}.zip ScreenHaptics.app
 
+      - name: Generate release body
+        run: |
+          chmod +x .github/scripts/changelog.sh
+          .github/scripts/changelog.sh > CHANGELOG.md || true
+
+          cat <<'EOF' > INSTALL.md
+          ### Installation
+          1. Download `ScreenHaptics-${{ steps.version.outputs.version }}.zip`
+          2. Unzip and drag `ScreenHaptics.app` to your Applications folder
+          3. Launch the app
+
+          > [!NOTE]
+          If you encounter security warnings, go to System Settings > Privacy & Security and click "Open Anyway" for ScreenHaptics.
+          The app is not notarized by Apple, so you need to bypass the Gatekeeper.
+          EOF
+
+          if [ -s CHANGELOG.md ]; then
+            cat CHANGELOG.md INSTALL.md > FULL_RELEASE.md
+          else
+            cat INSTALL.md > FULL_RELEASE.md
+          fi
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -49,18 +73,8 @@ jobs:
           name: v${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
+          body_path: FULL_RELEASE.md
           files: |
             ScreenHaptics-${{ steps.version.outputs.version }}.zip
-          body: |
-            ## ScreenHaptics v${{ steps.version.outputs.version }}
-
-            ### Installation
-            1. Download `ScreenHaptics-${{ steps.version.outputs.version }}.zip`
-            2. Unzip and drag `ScreenHaptics.app` to your Applications folder
-            3. Launch the app
-
-            > [!NOTE]
-            If you encounter security warnings, go to System Settings > Privacy & Security and click "Open Anyway" for ScreenHaptics.
-            The app is not notarized by Apple, so you need to bypass the Gatekeeper.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

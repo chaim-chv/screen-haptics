@@ -21,6 +21,11 @@ Download the latest release and follow the instructions from the [Releases](http
 
 > To recover the item, just open ScreenHaptics when it's already running
 
+## Contributing
+
+We follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages to enable automatic changelog generation.
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on how to contribute.
+
 ## For Development
 
 You can build the app using just Command Line Tools:
