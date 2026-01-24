@@ -1,5 +1,9 @@
 # ScreenHaptics
 
+[![Release](https://img.shields.io/github/v/release/chaim-chv/screen-haptics?label=latest%20release)](https://github.com/chaim-chv/screen-haptics/releases/latest)
+[![License](https://img.shields.io/github/license/chaim-chv/screen-haptics)](https://github.com/chaim-chv/screen-haptics/blob/main/LICENSE)
+[![Homebrew](https://img.shields.io/badge/Homebrew-Cask-blue)](https://github.com/chaim-chv/homebrew-tap)
+
 A lightweight macOS menu bar utility that provides haptic feedback when your mouse cursor moves between displays.
 
 ## Features
