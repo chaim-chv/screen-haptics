@@ -12,9 +12,20 @@ A lightweight macOS menu bar utility that provides haptic feedback when your mou
 
 ## Installation & Usage
 
+### Homebrew
+Install via Homebrew Cask from the custom tap:
+
+```bash
+brew tap chaim-chv/tap
+brew install --cask screen-haptics --no-quarantine
+```
+> `--no-quarantine` avoids macOS warnings about unnotarized apps, but it is deprecated and doomed to be removed in future Homebrew versions.
+
+### Manual
+
 Download the latest release and follow the instructions from the [Releases](https://github.com/chaim-chv/screen-haptics/releases/latest) page.
 
-### Hide Status Bar Item (Like [Here](https://github.com/artginzburg/MiddleClick#hide-status-bar-item))
+### Hide Status Bar Item (Like [MiddleClick](https://github.com/artginzburg/MiddleClick#hide-status-bar-item))
 
 1. Holding `⌘`, drag it away from the status bar until you see a :heavy_multiplication_x: (cross icon)
 2. Let it go
