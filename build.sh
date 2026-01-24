@@ -30,6 +30,8 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<EOF
     <string>$VERSION</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    <key>LSMinimumSystemVersion</key>
+    <string>10.15</string>
     <key>LSUIElement</key>
     <true/>
     <key>CFBundleDevelopmentRegion</key>
@@ -43,7 +45,7 @@ cat > "$APP_BUNDLE/Contents/Info.plist" <<EOF
 </plist>
 EOF
 
-swiftc main.swift -o "$MACOS_DIR/$APP_NAME"
+MACOSX_DEPLOYMENT_TARGET=10.15 swiftc main.swift -o "$MACOS_DIR/$APP_NAME"
 
 # Copy localizations
 if [ -d "Resources" ]; then
