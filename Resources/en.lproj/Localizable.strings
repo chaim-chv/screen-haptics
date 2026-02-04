@@ -1,5 +1,6 @@
 /* Menu Items */
 "about" = "About";
+"about_app" = "About %@";
 "haptic_strength" = "Haptic Strength";
 "strength_light" = "Light";
 "strength_medium" = "Medium";

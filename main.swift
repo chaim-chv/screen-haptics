@@ -41,7 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let menu = NSMenu()
 
-        menu.addItem(NSMenuItem(title: NSLocalizedString("about", comment: ""), action: #selector(showAbout), keyEquivalent: ""))
+        let appName = NSLocalizedString("app_name", comment: "")
+        menu.addItem(NSMenuItem(title: String(format: NSLocalizedString("about_app", comment: ""), appName), action: #selector(showAbout), keyEquivalent: ""))
         menu.addItem(NSMenuItem.separator())
 
         strengthMenu = NSMenu()

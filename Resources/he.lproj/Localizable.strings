@@ -1,5 +1,6 @@
 /* Menu Items */
 "about" = "אודות";
+"about_app" = "אודות %@";
 "haptic_strength" = "עוצמת המשוב";
 "strength_light" = "חלש";
 "strength_medium" = "בינוני";
